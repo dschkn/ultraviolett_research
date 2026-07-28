@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#090b12"/><stop offset="1" stop-color="#15111f"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="720" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#d9dce7" stroke-width="1"><path d="M80 108H1530M80 210H1530M80 312H1530M80 414H1530M80 516H1530M80 618H1530"/></g>
+  <g fill="#9da2b4" font-family="Helvetica,Arial,sans-serif" font-size="17">
+    <text x="80" y="70" letter-spacing="5">SPECTRAL FIELD / RELATIVE FREQUENCY</text><text x="25" y="625">LOW</text><text x="25" y="112">HIGH</text>
+  </g>
+  <g filter="url(#glow)" fill="none" stroke-linecap="round">
+    <g stroke="#f08ead" opacity=".78"><path stroke-width="10" d="M85 572C290 575 390 564 565 569S890 553 1070 560s312-1 455 4"/><path stroke-width="5" d="M85 478C265 474 410 490 565 480s348-3 495 5 310-14 465-7"/><path stroke-width="3" d="M85 338C305 346 440 331 620 339s310-4 455 2 295-9 450-5"/></g>
+    <g stroke="#efd57f" opacity=".72"><path stroke-width="7" d="M110 522C260 520 405 529 550 520s290 10 445 0 343 5 510 1"/><path stroke-width="4" d="M110 397C310 390 455 406 610 398s335 3 480-2 280 8 415 1"/><path stroke-width="3" d="M110 259C280 265 420 251 605 258s325-5 480 0 270-7 420-3"/></g>
+    <g stroke="#91d6a5" opacity=".76"><path stroke-width="8" d="M135 448C300 454 435 442 600 449s305-7 485 0 260-8 395-3"/><path stroke-width="4" d="M135 310C320 302 460 319 625 309s310 7 470-1 255 7 385 1"/><path stroke-width="3" d="M135 184C305 190 470 175 630 184s330-5 485 0 245-6 365-2"/></g>
+    <g stroke="#75b7e5" opacity=".78"><path stroke-width="8" d="M165 358C340 365 490 350 650 359s315-8 475 0 230-7 330-4"/><path stroke-width="5" d="M165 232C335 226 470 241 655 232s300 5 455-1 245 6 345 2"/><path stroke-width="3" d="M165 132C350 139 470 124 670 133s300-6 445 0 230-8 340-4"/></g>
+  </g>
+  <g fill="#f4f4f6" font-family="Helvetica,Arial,sans-serif"><text x="80" y="680" font-size="28" letter-spacing="7">ULTRAVIOLETT</text><text x="1210" y="679" font-size="15" letter-spacing="3" fill="#a5a9b8">OVERTONE MULTIPLICATION STUDY</text></g>
+</svg>
