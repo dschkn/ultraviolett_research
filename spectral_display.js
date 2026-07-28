@@ -3,8 +3,9 @@ mgraphics.init();
 mgraphics.relative_coords = 0;
 mgraphics.autofill = 0;
 
-var MAX_EVENTS = 72;
-var events = [];
+var MAX_FRAMES = 150;
+var frames = [];
+var currentFrame = [];
 var colours = {
   soprano: [0.94, 0.56, 0.69],
   alto: [0.93, 0.82, 0.50],
@@ -13,7 +14,17 @@ var colours = {
 };
 
 function clear() {
-  events = [];
+  frames = [];
+  currentFrame = [];
+  mgraphics.redraw();
+}
+
+function frame() {
+  if (currentFrame.length) {
+    frames.push(currentFrame);
+    if (frames.length > MAX_FRAMES) frames.shift();
+  }
+  currentFrame = [];
   mgraphics.redraw();
 }
 
@@ -25,14 +36,12 @@ function spectrum() {
   for (var i = 0; i + 1 < args.length; i += 2) {
     partials.push([Number(args[i]), Number(args[i + 1])]);
   }
-  events.push({
+  currentFrame.push({
     instrument: instrument,
     id: id,
     partials: partials,
     born: Date.now()
   });
-  if (events.length > MAX_EVENTS) events.shift();
-  mgraphics.redraw();
 }
 
 function paint() {
@@ -73,30 +82,30 @@ function grid(width, height) {
 }
 
 function history(width, height) {
-  if (!events.length) return;
+  if (!frames.length) return;
   var usable = width - 44;
-  var step = usable / MAX_EVENTS;
-  var offset = MAX_EVENTS - events.length;
-  for (var e = 0; e < events.length; e++) {
-    var event = events[e];
-    var x = 24 + (offset + e) * step;
-    var colour = colours[event.instrument] || [0.8, 0.8, 0.8];
-    for (var p = 0; p < event.partials.length; p++) {
-      var frequency = event.partials[p][0];
-      var amplitude = Math.max(0, Math.min(1, event.partials[p][1]));
-      var y = yForFrequency(frequency, height);
-      var alpha = 0.18 + Math.sqrt(amplitude) * 0.70;
-      var thickness = 1.0 + Math.sqrt(amplitude) * 3.4;
+  var step = usable / MAX_FRAMES;
+  var offset = MAX_FRAMES - frames.length;
+  for (var f = 0; f < frames.length; f++) {
+    var x = 24 + (offset + f) * step;
+    for (var e = 0; e < frames[f].length; e++) {
+      var event = frames[f][e];
+      var colour = colours[event.instrument] || [0.8, 0.8, 0.8];
+      for (var p = 0; p < event.partials.length; p++) {
+        var frequency = event.partials[p][0];
+        var amplitude = Math.max(0, Math.min(1, event.partials[p][1]));
+        var y = yForFrequency(frequency, height);
+        var alpha = 0.12 + Math.sqrt(amplitude) * 0.72;
+        var length = 6 + Math.sqrt(amplitude) * 28;
 
-      mgraphics.set_source_rgba(colour[0], colour[1], colour[2], alpha * 0.22);
-      mgraphics.rectangle(x - step * 0.4, y - thickness * 2.4,
-        Math.max(2, step * 1.65), thickness * 4.8);
-      mgraphics.fill();
+        mgraphics.set_source_rgba(colour[0], colour[1], colour[2], alpha * 0.18);
+        mgraphics.rectangle(x - 1.5, y - length * 0.55, 4, length * 1.1);
+        mgraphics.fill();
 
-      mgraphics.set_source_rgba(colour[0], colour[1], colour[2], alpha);
-      mgraphics.rectangle(x, y - thickness * 0.5,
-        Math.max(2, step * 1.25), thickness);
-      mgraphics.fill();
+        mgraphics.set_source_rgba(colour[0], colour[1], colour[2], alpha);
+        mgraphics.rectangle(x, y - length * 0.5, Math.max(1, step * 0.72), length);
+        mgraphics.fill();
+      }
     }
   }
 }
